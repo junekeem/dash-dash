@@ -47,7 +47,7 @@ This guide outlines essential requirements and considerations for developing the
 ### 2.3. Menu Management
 
 - `/api/menus`: Endpoints related to menus
-    - `POST /api/menus/{restaurantId}`: Add a menu to a specific restaurant
+    - `POST /api/menus`: Add a menu to a specific restaurant
         - Restaurant owners: Can add menus from their own restaurant
         - App administrators: Can add any menus to any restaurants
     - `GET /api/menus/{menuId}`: Retrieve a specific menu (all user roles, public)
@@ -151,7 +151,7 @@ This guide outlines essential requirements and considerations for developing the
 - `name`
 - `price`
 - `options`
-- `pictures`
+- `image`
 
 <details>
     <summary>Menu Table</summary>
@@ -164,7 +164,7 @@ This guide outlines essential requirements and considerations for developing the
 | name              | VARCHAR(255) NOT NULL
 | price             | DECIMAL(10, 2) NOT NULL
 | options           | JSON
-| pictures          | BLOB
+| image             | BLOB
 | created_at        | TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 | updated_at        | TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 +-------------------+
@@ -234,7 +234,7 @@ This guide outlines essential requirements and considerations for developing the
 - `orderId`
 - `rating`
 - `comment`
-- `pictures`
+- `image`
 
 <details>
     <summary>Review Table</summary>
@@ -246,7 +246,7 @@ This guide outlines essential requirements and considerations for developing the
 | order_id          | FOREIGN KEY -> Order(order_id)
 | rating            | DECIMAL(2, 2)
 | comment           | TEXT
-| pictures          | BLOB
+| image             | BLOB
 | created_at        | TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 | updated_at        | TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 +-------------------+
