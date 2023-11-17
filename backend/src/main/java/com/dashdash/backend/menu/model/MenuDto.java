@@ -4,12 +4,11 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 @Getter
 @Builder(toBuilder = true)
 public class MenuDto {
-    private UUID id;
+    private Long id;
     private String name;
     private BigDecimal price;
     private String options;

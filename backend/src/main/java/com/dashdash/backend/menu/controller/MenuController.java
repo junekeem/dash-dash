@@ -6,8 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/api/menus")
 public class MenuController {
@@ -28,7 +26,7 @@ public class MenuController {
     }
 
     @GetMapping("/{menuId}")
-    public ResponseEntity<MenuDto> getMenu(@PathVariable UUID menuId) {
+    public ResponseEntity<MenuDto> getMenu(@PathVariable Long menuId) {
         MenuDto menu = menuService.getById(menuId);
 
         return menu != null ?
@@ -38,7 +36,7 @@ public class MenuController {
 
 
     @PutMapping("/{menuId}")
-    public ResponseEntity<MenuDto> updateMenu(@PathVariable UUID menuId, @RequestBody MenuDto menuDto) {
+    public ResponseEntity<MenuDto> updateMenu(@PathVariable Long menuId, @RequestBody MenuDto menuDto) {
         MenuDto updatedMenu = menuService.updateById(menuId, menuDto);
 
         return ResponseEntity
@@ -47,7 +45,7 @@ public class MenuController {
     }
 
     @DeleteMapping("/{menuId}")
-    public ResponseEntity<MenuDto> deleteMenu(@PathVariable UUID menuId) {
+    public ResponseEntity<MenuDto> deleteMenu(@PathVariable Long menuId) {
         MenuDto menu = menuService.getById(menuId);
         menuService.deleteById(menuId);
 

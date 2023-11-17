@@ -3,16 +3,14 @@ package com.dashdash.backend.menu.service;
 import com.dashdash.backend.menu.model.Menu;
 import com.dashdash.backend.menu.model.MenuDto;
 
-import java.util.UUID;
-
 public interface MenuService {
     MenuDto save(MenuDto menuDto);
 
-    MenuDto getById(UUID id);
+    MenuDto getById(Long id);
 
-    MenuDto updateById(UUID id, MenuDto menuDto);
+    MenuDto updateById(Long id, MenuDto menuDto);
 
-    void deleteById(UUID id);
+    void deleteById(Long id);
 
     default MenuDto entityToDto(Menu menu) {
         return MenuDto.builder()

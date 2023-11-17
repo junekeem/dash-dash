@@ -5,8 +5,6 @@ import com.dashdash.backend.menu.model.MenuDto;
 import com.dashdash.backend.menu.repository.MenuRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @Service
 public class MenuServiceImpl implements MenuService {
 
@@ -25,14 +23,14 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public MenuDto getById(UUID id) {
+    public MenuDto getById(Long id) {
         Menu menu = menuRepository.findById(id).orElseThrow(() -> new RuntimeException("Menu not found!"));
 
         return entityToDto(menu);
     }
 
     @Override
-    public MenuDto updateById(UUID id, MenuDto menuDto) {
+    public MenuDto updateById(Long id, MenuDto menuDto) {
 
         Menu savedMenu = menuRepository.findById(id)
                 .map(menu -> {
@@ -58,7 +56,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public void deleteById(UUID id) {
+    public void deleteById(Long id) {
         menuRepository.deleteById(id);
     }
 }

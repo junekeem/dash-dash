@@ -4,19 +4,19 @@ package com.dashdash.backend.menu.repository;
 //@Repository
 public class MenuRepositoryImpl {
 //
-//    private Map<UUID, Menu> db = new HashMap<>();
+//    private Map<Long, Menu> db = new HashMap<>();
 //
 //    public Menu save(Menu menu) {
-//        menu.setId(UUID.randomUUID());
+//        menu.setId(Long.randomLong());
 //        db.put(menu.getId(), menu);
 //        return menu;
 //    }
 //
-//    public Menu findMenuById(UUID id) {
+//    public Menu findMenuById(Long id) {
 //        return db.get(id);
 //    }
 //
-//    public Menu updateById(UUID id, Menu updatedMenu) {
+//    public Menu updateById(Long id, Menu updatedMenu) {
 //        if (db.containsKey(id)) {
 //            db.put(id, updatedMenu);
 //            return updatedMenu;
@@ -25,7 +25,7 @@ public class MenuRepositoryImpl {
 //        }
 //    }
 //
-//    public void deleteById(UUID id) {
+//    public void deleteById(Long id) {
 //        db.remove(id);
 //    }
 }
