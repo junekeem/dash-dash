@@ -43,16 +43,6 @@ public class MenuServiceImpl implements MenuService {
                 .orElseThrow(() -> new RuntimeException("Menu not saved!"));
 
         return entityToDto(savedMenu);
-
-//            // This created new object, and trigger INSERT... instead of UPDATE...
-//            Menu updatedMenu = existingMenu.toBuilder()
-//                    .name(menuDto.getName())
-//                    .price(menuDto.getPrice())
-//                    .options(menuDto.getOptions())
-//                    .image(menuDto.getImage())
-//                    .build();
-//
-//            return entityToDto(menuRepository.save(menuFromDb));
     }
 
     @Override
