@@ -26,27 +26,35 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public MenuDto getById(UUID id) {
-        Menu menu = menuRepository.findById(id);
+        Menu menu = menuRepository.findById(id).orElseThrow(() -> new RuntimeException("Menu not found!"));
 
         return entityToDto(menu);
     }
 
     @Override
     public MenuDto updateById(UUID id, MenuDto menuDto) {
-        Menu existingMenu = menuRepository.findById(id);
 
-        if (existingMenu != null) {
-            Menu updatedMenu = existingMenu.toBuilder()
-                    .name(menuDto.getName())
-                    .price(menuDto.getPrice())
-                    .options(menuDto.getOptions())
-                    .image(menuDto.getImage())
-                    .build();
+        Menu savedMenu = menuRepository.findById(id)
+                .map(menu -> {
+                    menu.setName(menuDto.getName());
+                    menu.setPrice(menuDto.getPrice());
+                    menu.setOptions(menuDto.getOptions());
+                    menu.setImage(menuDto.getImage());
+                    return menuRepository.save(menu);
+                })
+                .orElseThrow(() -> new RuntimeException("Menu not saved!"));
 
-            return entityToDto(menuRepository.updateById(existingMenu.getId(), updatedMenu));
-        } else {
-            return null;
-        }
+        return entityToDto(savedMenu);
+
+//            // This created new object, and trigger INSERT... instead of UPDATE...
+//            Menu updatedMenu = existingMenu.toBuilder()
+//                    .name(menuDto.getName())
+//                    .price(menuDto.getPrice())
+//                    .options(menuDto.getOptions())
+//                    .image(menuDto.getImage())
+//                    .build();
+//
+//            return entityToDto(menuRepository.save(menuFromDb));
     }
 
     @Override

@@ -16,6 +16,7 @@ public interface MenuService {
 
     default MenuDto entityToDto(Menu menu) {
         return MenuDto.builder()
+                .id(menu.getId())
                 .name(menu.getName())
                 .price(menu.getPrice())
                 .options(menu.getOptions())
