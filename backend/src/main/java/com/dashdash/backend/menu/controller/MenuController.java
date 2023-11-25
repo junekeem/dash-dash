@@ -1,11 +1,10 @@
 package com.dashdash.backend.menu.controller;
 
-import com.dashdash.backend.menu.model.Menu;
+import com.dashdash.backend.menu.model.MenuDto;
 import com.dashdash.backend.menu.service.MenuService;
-import org.springframework.http.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/menus")
@@ -18,8 +17,8 @@ public class MenuController {
     }
 
     @PostMapping
-    public ResponseEntity<Menu> saveMenu(@RequestBody Menu menu) {
-        Menu updatedMenu = menuService.save(menu);
+    public ResponseEntity<MenuDto> saveMenu(@RequestBody MenuDto menuDto) {
+        MenuDto updatedMenu = menuService.save(menuDto);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -27,8 +26,8 @@ public class MenuController {
     }
 
     @GetMapping("/{menuId}")
-    public ResponseEntity<Menu> getMenu(@PathVariable UUID menuId) {
-        Menu menu = menuService.getById(menuId);
+    public ResponseEntity<MenuDto> getMenu(@PathVariable Long menuId) {
+        MenuDto menu = menuService.getById(menuId);
 
         return menu != null ?
                 ResponseEntity.status(HttpStatus.OK).body(menu)
@@ -37,8 +36,8 @@ public class MenuController {
 
 
     @PutMapping("/{menuId}")
-    public ResponseEntity<Menu> updateMenu(@PathVariable UUID menuId, @RequestBody Menu menu) {
-        Menu updatedMenu = menuService.updateById(menuId, menu);
+    public ResponseEntity<MenuDto> updateMenu(@PathVariable Long menuId, @RequestBody MenuDto menuDto) {
+        MenuDto updatedMenu = menuService.updateById(menuId, menuDto);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -46,8 +45,8 @@ public class MenuController {
     }
 
     @DeleteMapping("/{menuId}")
-    public ResponseEntity<Menu> deleteMenu(@PathVariable UUID menuId) {
-        Menu menu = menuService.getById(menuId);
+    public ResponseEntity<MenuDto> deleteMenu(@PathVariable Long menuId) {
+        MenuDto menu = menuService.getById(menuId);
         menuService.deleteById(menuId);
 
         return ResponseEntity

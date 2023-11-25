@@ -1,17 +1,15 @@
 package com.dashdash.backend.menu.repository;
 
 import com.dashdash.backend.menu.model.Menu;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
-public interface MenuRepository {
+@Repository
+public interface MenuRepository extends JpaRepository<Menu, Long> {
 
-    Menu save(Menu menu);
+    @Override
+    Optional<Menu> findById(Long id);
 
-    Menu findById(UUID id);
-
-    Menu updateById(UUID id, Menu menu);
-
-    void deleteById(UUID id);
 }

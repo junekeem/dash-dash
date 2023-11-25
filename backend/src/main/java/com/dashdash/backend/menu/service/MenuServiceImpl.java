@@ -1,10 +1,9 @@
 package com.dashdash.backend.menu.service;
 
 import com.dashdash.backend.menu.model.Menu;
+import com.dashdash.backend.menu.model.MenuDto;
 import com.dashdash.backend.menu.repository.MenuRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Service
 public class MenuServiceImpl implements MenuService {
@@ -16,32 +15,38 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public Menu save(Menu menu) {
-        return menuRepository.save(menu);
+    public MenuDto save(MenuDto menuDto) {
+        Menu menu = dtoToEntity(menuDto);
+        Menu savedMenu = menuRepository.save(menu);
+
+        return entityToDto(savedMenu);
     }
 
     @Override
-    public Menu getById(UUID id) {
-        return menuRepository.findById(id);
+    public MenuDto getById(Long id) {
+        Menu menu = menuRepository.findById(id).orElseThrow(() -> new RuntimeException("Menu not found!"));
+
+        return entityToDto(menu);
     }
 
     @Override
-    public Menu updateById(UUID id, Menu updatedMenu) {
-        Menu existingMenu = this.getById(id);
+    public MenuDto updateById(Long id, MenuDto menuDto) {
 
-        if (existingMenu != null) {
-            existingMenu.setName(updatedMenu.getName());
-            existingMenu.setPrice(updatedMenu.getPrice());
-            existingMenu.setOptions(updatedMenu.getOptions());
+        Menu savedMenu = menuRepository.findById(id)
+                .map(menu -> {
+                    menu.setName(menuDto.getName());
+                    menu.setPrice(menuDto.getPrice());
+                    menu.setOptions(menuDto.getOptions());
+                    menu.setImage(menuDto.getImage());
+                    return menuRepository.save(menu);
+                })
+                .orElseThrow(() -> new RuntimeException("Menu not saved!"));
 
-            return menuRepository.updateById(existingMenu.getId(), existingMenu);
-        } else {
-            return null;
-        }
+        return entityToDto(savedMenu);
     }
 
     @Override
-    public void deleteById(UUID id) {
+    public void deleteById(Long id) {
         menuRepository.deleteById(id);
     }
 }
