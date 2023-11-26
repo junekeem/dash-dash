@@ -1,6 +1,6 @@
-package menu.controller;
+package com.dashdash.backend.menu.controller;
 
-import com.dashdash.backend.menu.controller.MenuController;
+import com.dashdash.backend.application.model.response.SingleApiResultResponse;
 import com.dashdash.backend.menu.model.MenuDto;
 import com.dashdash.backend.menu.service.MenuService;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,11 +14,10 @@ import org.springframework.http.ResponseEntity;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
-public class MenuControllerTest {
+public class MenuControllerUnitTest {
 
     @Mock
     private MenuService menuService;
@@ -36,10 +35,10 @@ public class MenuControllerTest {
         MenuDto menuDto = createMenuDto();
         when(menuService.save(any(MenuDto.class))).thenReturn(menuDto);
 
-        ResponseEntity<MenuDto> response = menuController.saveMenu(menuDto);
+        ResponseEntity<SingleApiResultResponse<MenuDto>> response = menuController.saveMenu(menuDto);
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        assertEquals(menuDto, response.getBody());
+        assertEquals(menuDto, response.getBody().getData());
     }
 
     @Test
@@ -47,17 +46,17 @@ public class MenuControllerTest {
         MenuDto menuDto = createMenuDto();
         when(menuService.getById(anyLong())).thenReturn(menuDto);
 
-        ResponseEntity<MenuDto> response = menuController.getMenu(1L);
+        ResponseEntity<SingleApiResultResponse<MenuDto>> response = menuController.getMenu(1L);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(menuDto, response.getBody());
+        assertEquals(menuDto, response.getBody().getData());
     }
 
     @Test
-    public void fetchMenuByIdWithNotFoundException() {
+    public void fetchMenuByIdWithResourceNotFoundException() {
         when(menuService.getById(anyLong())).thenReturn(null);
 
-        ResponseEntity<MenuDto> response = menuController.getMenu(1L);
+        ResponseEntity<SingleApiResultResponse<MenuDto>> response = menuController.getMenu(1L);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         assertEquals(null, response.getBody());
@@ -68,10 +67,10 @@ public class MenuControllerTest {
         MenuDto menuDto = createMenuDto();
         when(menuService.updateById(anyLong(), any(MenuDto.class))).thenReturn(menuDto);
 
-        ResponseEntity<MenuDto> response = menuController.updateMenu(1L, menuDto);
+        ResponseEntity<SingleApiResultResponse<MenuDto>> response = menuController.updateMenu(1L, menuDto);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(menuDto, response.getBody());
+        assertEquals(menuDto, response.getBody().getData());
     }
 
     @Test
@@ -79,10 +78,10 @@ public class MenuControllerTest {
         MenuDto menuDto = createMenuDto();
         when(menuService.getById(anyLong())).thenReturn(menuDto);
 
-        ResponseEntity<MenuDto> response = menuController.deleteMenu(1L);
+        ResponseEntity<SingleApiResultResponse<MenuDto>> response = menuController.deleteMenu(1L);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(menuDto, response.getBody());
+        assertEquals(menuDto, response.getBody().getData());
 
         verify(menuService, times(1)).deleteById(1L);
     }

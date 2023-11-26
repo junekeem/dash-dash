@@ -1,9 +1,8 @@
-package menu.service;
+package com.dashdash.backend.menu.service;
 
 import com.dashdash.backend.menu.model.Menu;
 import com.dashdash.backend.menu.model.MenuDto;
 import com.dashdash.backend.menu.repository.MenuRepository;
-import com.dashdash.backend.menu.service.MenuServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

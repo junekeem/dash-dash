@@ -1,5 +1,6 @@
 package com.dashdash.backend.menu.service;
 
+import com.dashdash.backend.application.exception.ResourceNotFoundException;
 import com.dashdash.backend.menu.model.Menu;
 import com.dashdash.backend.menu.model.MenuDto;
 import com.dashdash.backend.menu.repository.MenuRepository;
@@ -24,7 +25,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public MenuDto getById(Long id) {
-        Menu menu = menuRepository.findById(id).orElseThrow(() -> new RuntimeException("Menu not found!"));
+        Menu menu = menuRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Menu not found!"));
 
         return entityToDto(menu);
     }
@@ -40,7 +41,7 @@ public class MenuServiceImpl implements MenuService {
                     menu.setImage(menuDto.getImage());
                     return menuRepository.save(menu);
                 })
-                .orElseThrow(() -> new RuntimeException("Menu not saved!"));
+                .orElseThrow(() -> new ResourceNotFoundException("Menu not found!"));
 
         return entityToDto(savedMenu);
     }

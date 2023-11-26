@@ -9,7 +9,5 @@ import java.util.Optional;
 @Repository
 public interface MenuRepository extends JpaRepository<Menu, Long> {
 
-    @Override
     Optional<Menu> findById(Long id);
-
 }
